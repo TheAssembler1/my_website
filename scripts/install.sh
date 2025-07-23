@@ -2,4 +2,4 @@
 
 set -ex
 
-sudo apt install apache2
+sudo apt install git apache2
