@@ -1,0 +1,6 @@
+[Unit]
+Description=Run deploy script
+
+[Service]
+Type=oneshot
+ExecStart=/home/ta1/src/my_website/scripts/deploy.sh
