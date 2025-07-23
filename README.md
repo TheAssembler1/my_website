@@ -2,6 +2,19 @@
 
 Welcome to the repository for my (Noah Lewis) website!
 
+# Managing EC2 Deployment
+
+The `.pem` file to connect using ssh is located in 
+my OSU onedrive under the folder `pem` with the 
+name `login_ssh.pem`.
+
+To connect using the following commands:
+
+```bash
+chmod 400 "login_ssh.pem"
+ssh -i "login_ssh.pem" ubuntu@ec2-18-217-11-27.us-east-2.compute.amazonaws.com
+```
+
 # Website Deployment Scripts
 
 This directory contains a set of helper scripts and configuration files for managing and deploying a static website using `git` and `Apache`. The scripts are intended for use on a systemd-based Linux system.
@@ -82,5 +95,9 @@ systemctl list-timers --all | grep deploy
 9. **Manually run deployment:**
 
 ```bash
-sudo systemctl start deploy.service
+sudo chown -R root:root /home/ubuntu/src/my_website
+sudo git config --system --add safe.directory /home/ubuntu/src/my_website
+sudo systemctl daemon-reload
+sudo systemctl restart deploy.service
+
 ```
