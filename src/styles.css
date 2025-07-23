@@ -1,0 +1,12 @@
+html {
+  background-color: #ddd;
+}
+
+body {
+  font-family: monospace;
+  margin: 0 30%;
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
