@@ -48,6 +48,12 @@ scripts/
 ExecStart=<repo>/scripts/deploy.sh
 ```
 
+- In `deploy.sh`:
+
+```ini
+SCRIPTS_DIR=<repo>/scripts
+```
+
 3. **Make all `.sh` executable:** 
 
 ```bash
@@ -99,5 +105,22 @@ sudo chown -R root:root /home/ubuntu/src/my_website
 sudo git config --system --add safe.directory /home/ubuntu/src/my_website
 sudo systemctl daemon-reload
 sudo systemctl restart deploy.service
+```
 
+10. **Setup tls https:**
+
+```bash
+sudo certbot --apache -d theassembler1.com
+```
+
+11. **Test Renewal***
+
+```bash
+sudo certbot renew --dry-run
+```
+
+12. **Open Firewall**
+
+```bash
+sudo ufw allow 'Apache Full'
 ```
