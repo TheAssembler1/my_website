@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+    <title>Noah Lewis (Personal Website)</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <body>
+        <h1><a href="/">Noah Lewis (Personal Website)</a></h1>
+        <hr>
+        <h2>Introduction Answers</h2>
+        <p>
+            This page provides an answers for chapter 1 (Introduction)
+            of the book "The Art of Multiprocessor Programming".
+        </p>
+        <hr>
+        <h2>Question & Answers</h2>
+        <h3>Problem 1</h3>
+        <p>
+            The dining philosophers problem was invented by E. W. Dijkstra, a
+            concurrency pioneer, to clarify the notions of deadlock and starvation freedom.
+            Imagine ﬁve philosophers who spend their lives just thinking and feasting. They
+            sit around a circular table with ﬁve chairs. The table has a big plate of rice. How-
+            ever, there are only ﬁve chopsticks (in the original formulation forks) available,
+            as shown in Fig. 1.5. Each philosopher thinks. When he gets hungry, he sits down
+            and picks up the two chopsticks that are closest to him. If a philosopher can pick
+            up both chopsticks, he can eat for a while. After a philosopher ﬁnishes eating, he
+            puts down the chopsticks and again starts to think.
+        </p>
+        <p>
+            1. Write a program to simulate the behavior of the philosophers, where each
+            philosopher is a thread and the chopsticks are shared objects. Notice that you
+            must prevent a situation where two philosophers hold the same chopstick at
+            the same time.
+        </p>
+        <p>
+            2. Amend your program so that it never reaches a state where philosophers are
+            deadlocked, that is, it is never the case that each philosopher holds one chop-
+            stick and is stuck waiting for another to get the second chopstick.
+        </p>
+        <p>
+            3. Amend your program so that no philosopher ever starves.
+        </p>
+        <p>
+            4. Write a program to provide a starvation-free solution for any number of
+            philosophers n.
+        </p>
+        <h3>Answer Problem 1 Part 1</h3>
+        <pre class="code-block">        
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class Main extends Thread {
+    static int num_philosophers = 5;
+    static List<Lock> chopsticks = new ArrayList<>();
+    static int eat_time_millis = 500;
+    
+    int philosopher_id;
+    
+    public Main(int philosopher_id) {
+        this.philosopher_id = philosopher_id;
+    }
+    
+    public static void main(String[] args) {
+        if(num_philosophers < 5) {
+            System.out.println("num_philosophers must be at least 5!");
+            return;
+        }
+        
+        List<Thread> philosophers = new ArrayList<>();
+        
+        for(int i = 0; i < num_philosophers; i++)
+            philosophers.add(new Main(i));
+        for(int i = 0; i < num_philosophers; i++)
+            chopsticks.add(new ReentrantLock(false));
+        for(Thread philosopher: philosophers)
+            philosopher.start();
+        for(Thread philosopher: philosophers) {
+            try {
+                philosopher.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+    
+    public void run() {
+        for(;;) {
+            System.out.println("Philosopher " + philosopher_id + " is thinking.");
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+                        
+            Lock leftChopstick = chopsticks.get(philosopher_id);
+            Lock rightChopstick = chopsticks.get((philosopher_id + 1) % num_philosophers);
+            
+            leftChopstick.lock();
+            try {
+                rightChopstick.lock();
+                try {
+                    System.out.println("Philosopher " + philosopher_id + " is eating.");
+                } finally {
+                    rightChopstick.unlock();
+                }
+            } finally {
+                System.out.println("Philosopher " + philosopher_id + " finished eating.");
+                leftChopstick.unlock();
+            }
+        }
+    }
+}
+        </pre>
+        <h3>Answer Problem 1 Part 2</h3>
+        <pre class="code-block">
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class Main extends Thread {
+    static int num_philosophers = 5;
+    static List<Lock> chopsticks = new ArrayList<>();
+    static int eat_time_millis = 500;
+    
+    int philosopher_id;
+    
+    public Main(int philosopher_id) {
+        this.philosopher_id = philosopher_id;
+    }
+    
+    public static void main(String[] args) {
+        if(num_philosophers < 5) {
+            System.out.println("num_philosophers must be at least 5!");
+            return;
+        }
+        
+        List<Thread> philosophers = new ArrayList<>();
+        
+        for(int i = 0; i < num_philosophers; i++)
+            philosophers.add(new Main(i));
+        for(int i = 0; i < num_philosophers; i++)
+            chopsticks.add(new ReentrantLock(false));
+        for(Thread philosopher: philosophers)
+            philosopher.start();
+        for(Thread philosopher: philosophers) {
+            try {
+                philosopher.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+    
+    public void run() {
+        for(;;) {
+            System.out.println("Philosopher " + philosopher_id + " is thinking.");
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            
+            // each philospher gets lowest index lock first
+            int first_chopstick_index = Math.min(philosopher_id, (philosopher_id + 1) % num_philosophers);
+            int second_chopstick_index = Math.max(philosopher_id, (philosopher_id + 1) % num_philosophers);
+                        
+            Lock firstChopstick = chopsticks.get(first_chopstick_index);
+            Lock secondChopstick = chopsticks.get(second_chopstick_index);
+            
+            firstChopstick.lock();
+            try {
+                secondChopstick.lock();
+                try {
+                    System.out.println("Philosopher " + philosopher_id + " is eating.");
+                } finally {
+                    secondChopstick.unlock();
+                }
+            } finally {
+                System.out.println("Philosopher " + philosopher_id + " finished eating.");
+                firstChopstick.unlock();
+            }
+        }
+    }
+}
+        </pre>
+        <h3>Answer Problem 1 Part 3</h3>
+        <pre class="code-block">
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class Main extends Thread {
+    static int num_philosophers = 5;
+    static List<Lock> chopsticks = new ArrayList<>();
+    static int eat_time_millis = 500;
+    
+    int philosopher_id;
+    
+    public Main(int philosopher_id) {
+        this.philosopher_id = philosopher_id;
+    }
+    
+    public static void main(String[] args) {
+        if(num_philosophers < 5) {
+            System.out.println("num_philosophers must be at least 5!");
+            return;
+        }
+        
+        List<Thread> philosophers = new ArrayList<>();
+        
+        for(int i = 0; i < num_philosophers; i++)
+            philosophers.add(new Main(i));
+        for(int i = 0; i < num_philosophers; i++)
+            chopsticks.add(new ReentrantLock(false));
+        for(Thread philosopher: philosophers)
+            philosopher.start();
+        for(Thread philosopher: philosophers) {
+            try {
+                philosopher.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+    
+    public void run() {
+        for(;;) {
+            System.out.println("Philosopher " + philosopher_id + " is thinking.");
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            
+            // each philospher gets lowest index lock first
+            int first_chopstick_index = Math.min(philosopher_id, (philosopher_id + 1) % num_philosophers);
+            int second_chopstick_index = Math.max(philosopher_id, (philosopher_id + 1) % num_philosophers);
+                        
+            Lock firstChopstick = chopsticks.get(first_chopstick_index);
+            Lock secondChopstick = chopsticks.get(second_chopstick_index);
+            
+            firstChopstick.lock();
+            try {
+                secondChopstick.lock();
+                try {
+                    System.out.println("Philosopher " + philosopher_id + " is eating.");
+                } finally {
+                    secondChopstick.unlock();
+                }
+            } finally {
+                System.out.println("Philosopher " + philosopher_id + " finished eating.");
+                firstChopstick.unlock();
+            }
+        }
+    }
+}
+        </pre>
+        <h3>Answer Problem 1 Part 4</h3>
+        <p>
+            The previous code already works for n philosophers.
+        </p>
+    </body>
+</html>
