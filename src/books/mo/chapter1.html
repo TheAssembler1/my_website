@@ -16,12 +16,15 @@
         <p>What are the two main functions of an operating system?</p>
         <h3>Answer Problem 1</h3>
         <ol>
-            <li>1. Provide users with good abstractions</li>
-            <li>2. Managing devices and resources</li>
+            <li>Provide users with good abstractions</li>
+            <li>Managing devices and resources</li>
         </ol>
 
         <h3>Problem 2</h3>
-        <p>In Section 1.4, nine different types of operating systems are described. Give a list of applications for each of these systems (one per operating systems type).</p>
+        <p>
+            In Section 1.4, nine different types of operating systems are described. 
+            Give a list of applications for each of these systems (one per operating systems type).
+        </p>
         <h3>Answer Problem 2</h3>
         <ol>
         <li><b>Mainframe Operating Systems</b>: Bank transaction system</li>
@@ -45,12 +48,24 @@
         </p>
 
         <h3>Problem 4</h3>
-        <p>To use cache memory, main memory is divided into cache lines, typically 32 or 64 bytes long. An entire cache line is cached at once. What is the advantage of caching an entire line instead of a single byte or word at a time?</p>
+        <p>
+            To use cache memory, main memory is divided into cache lines, typically 32 
+            or 64 bytes long. An entire cache line is cached at once. What is the advantage 
+            of caching an entire line instead of a single byte or word at a time?
+        </p>
         <h3>Answer Problem 4</h3>
-        <p>Imagine caching was done with byte level granularity and the user will access 64 bytes contiguously. There will be 64 cache misses. Whereas if the cache lines are 64 bytes then there will be a single cache miss for the first byte at which point the following 63 bytes are cached.</p>
+        <p>
+            Imagine caching was done with byte level granularity and the user will 
+            access 64 bytes contiguously. There will be 64 cache misses. Whereas if 
+            the cache lines are 64 bytes then there will be a single cache miss for 
+            the first byte at which point the following 63 bytes are cached.
+        </p>
 
         <h3>Problem 5</h3>
-        <p>On early computers, every byte of data read or written was handled by the CPU (i.e., there was no DMA). What implications does this have for multiprogramming?</p>
+        <p>
+            On early computers, every byte of data read or written was handled by the 
+            CPU (i.e., there was no DMA). What implications does this have for multiprogramming?
+        </p>
         <h3>Answer Problem 5</h3>
         <p>
             If each byte read/written is managed by the CPU then when multiple 
@@ -60,12 +75,23 @@
         </p>
 
         <h3>Problem 6</h3>
-        <p>Instructions related to accessing I/O devices are typically privileged instructions, that is, they can be executed in kernel mode but not in user mode. Give a reason why these instructions are privileged.</p>
+        <p>
+            Instructions related to accessing I/O devices are typically privileged 
+            instructions, that is, they can be executed in kernel mode but not in user mode. 
+            Give a reason why these instructions are privileged.
+        </p>
         <h3>Answer Problem 6</h3>
-        <p>If I/O instructions are available in userspace there is nothing preventing bad (malicious or buggy) processes from incorrectly interacting with devices.</p>
+        <p>
+            If I/O instructions are available in userspace there is nothing preventing 
+            bad (malicious or buggy) processes from incorrectly interacting with devices.
+        </p>
 
         <h3>Problem 7</h3>
-        <p>The family-of-computers idea was introduced in the 1960s with the IBM System/360 mainframes. Is this idea now dead as a doornail or does it live on?</p>
+        <p>
+            The family-of-computers idea was introduced in the 1960s with 
+            the IBM System/360 mainframes. Is this idea now dead as a doornail 
+            or does it live on?
+        </p>
         <h3>Answer Problem 7</h3>
         <p>This is still alive and well. An example includes the x86 CPU family.</p>
 
@@ -86,24 +112,41 @@
         <p>Price for 3,240 KB of memory in 2025 at $0.00000214577 per KB: approximately $0.00695</p>
 
         <h3>Problem 9</h3>
-        <p>There are several design goals in building an operating system, for example, resource utilization, timeliness, robustness, and so on. Give an example of two design goals that may contradict one another.</p>
+        <p>
+            There are several design goals in building an operating system, for example, 
+            resource utilization, timeliness, robustness, and so on. Give an example of 
+            two design goals that may contradict one another.
+        </p>
         <h3>Answer Problem 9</h3>
         <p>Correctness and speed (especially in the context of multiprocessor programming).</p>
 
         <h3>Problem 10</h3>
-        <p>What is the difference between kernel and user mode? Explain how having two distinct modes aids in designing an operating system.</p>
-        <h3>Answer Problem 10</h3>
-        <p>Kernel mode grants access to specialized CPU instructions only available when the CPU is at a specific ring level.</p>
         <p>
-            Kernel level drivers have full responsibility for ensuring devices are used correctly. By decoupling the kernel from userspace,
-            the kernel can provide abstractions (APIs) which userspace programs can use. This allows for the underlying implementation of these
+            What is the difference between kernel and user mode? Explain how having two 
+            distinct modes aids in designing an operating system.
+        </p>
+        <h3>Answer Problem 10</h3>
+        <p>
+            Kernel mode grants access to specialized CPU instructions only available when 
+            the CPU is at a specific ring level.</p>
+        <p>
+            Kernel level drivers have full responsibility for ensuring devices are used correctly. 
+            By decoupling the kernel from userspace,
+            the kernel can provide abstractions (APIs) which userspace programs can use. 
+            This allows for the underlying implementation of these
             APIs to be changed without breaking userspace (most of the time :)...).
         </p>
 
         <h3>Problem 11</h3>
-        <p>A 255-GB disk has 65,536 cylinders with 255 sectors per track and 512 bytes per sector. How many platters and heads does this disk have? Assuming an average cylinder seek time of 11 ms, average rotational delay of 7 msec and reading rate of 100 MB/sec, calculate the average time it will take to read 400 KB from one sector.</p>
+        <p>
+            A 255-GB disk has 65,536 cylinders with 255 sectors per track and 512 bytes 
+            per sector. How many platters and heads does this disk have? Assuming an 
+            average cylinder seek time of 11 ms, average rotational delay of 7 msec and 
+            reading rate of 100 MB/sec, calculate the average time it will take to 
+            read 400 KB from one sector.</p>
         <h3>Answer Problem 11</h3>
-        <p>Number of platters: (total_data / data_per_platter_side) / 2_sides_per_platter = (255 GB / (65536 * 255 * 512) B) / 2 = 16</p>
+        <p>Number of platters: (total_data / data_per_platter_side) 
+            / 2_sides_per_platter = (255 GB / (65536 * 255 * 512) B) / 2 = 16</p>
         <p>Number of heads: 16 * 2 = 32 heads</p>
         <p>400 KB / 512 B = ceiling(781.25) = 782 sectors</p>
         <p>Average time = 782 * (11 ms + 7 ms + 5.12 * 10^(-6)) = 14.06 sec</p>
