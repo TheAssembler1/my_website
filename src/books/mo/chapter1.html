@@ -151,5 +151,167 @@
         <p>400 KB / 512 B = ceiling(781.25) = 782 sectors</p>
         <p>Average time = 782 * (11 ms + 7 ms + 5.12 * 10^(-6)) = 14.06 sec</p>
         <p>This answer assumes sectors are randomly scattered on disk and not contiguous.</p>
+        <h3>Problem 12</h3>
+        <p>
+            Which of the following instructions should be allowed only in kernel mode?
+            <br>(a) Disable all interrupts.<br>
+            (b) Read the time-of-day clock.<br>
+            (c) Set the time-of-day clock.<br>
+            (d) Change the memory map.
+        </p>
+        <h3>Answer Problem 12</h3>
+        <p>
+            (a) YES<br>
+            (b) NO<br>
+            (c) YES<br>
+            (d) YES
+        </p>
+
+        <h3>Problem 13</h3>
+        <p>
+            Consider a system that has two CPUs, each CPU having two threads (hyperthreading).
+            Suppose three programs, P0, P1, and P2, are started with run times of 5, 10 and 20
+            msec, respectively. How long will it take to complete the execution of these programs?
+            Assume that all three programs are 100% CPU bound, do not block during execution,
+            and do not change CPUs once assigned.
+        </p>
+        <h3>Answer Problem 13</h3>
+        <p>
+            The system can run up to 4 threads in parallel. P0 and P1 finish in 5 and 10 msec respectively. P2 finishes in 20 msec.<br>
+            Timeline:<br>
+            msec: 0123456789012345678901234<br>
+            P0:   -----<br>
+            P1:   ----------<br>
+            P2:        --------------------<br>
+            Total time: 25 msec
+        </p>
+
+        <h3>Problem 14</h3>
+        <p>
+            A computer has a pipeline with four stages. Each stage takes the same time to do its
+            work, namely, 1 nsec. How many instructions per second can this machine execute?
+        </p>
+        <h3>Answer Problem 14</h3>
+        <p>
+            Once the pipeline is filled, one instruction completes every 1 nsec.<br>
+            So the system can execute 1 billion (10<sup>9</sup>) instructions/sec.<br>
+            Note: the first instruction takes 4 nsec, but this is amortized over many instructions.
+        </p>
+
+        <h3>Problem 15</h3>
+        <p>
+            Consider a computer system that has cache memory, main memory (RAM), and disk,
+            and an operating system that uses virtual memory. It takes 1 nsec to access a word
+            from the cache, 10 nsec to access a word from the RAM, and 10 ms to access a word
+            from the disk. If the cache hit rate is 95% and main memory hit rate (after a cache
+            miss) is 99%, what is the average time to access a word?
+        </p>
+        <h3>Answer Problem 15</h3>
+        <p>
+            Average access time = (1 ns * 0.95) + ((1 ns + 10 ns) * 0.99 * 0.05) + ((1 ns + 10 ns + 10 ms) * 0.01 * 0.05)<br>
+            = 0.95 ns + 0.5445 ns + 5000 ns ≈ 5001.5 ns
+        </p>
+
+        <h3>Problem 16</h3>
+        <p>
+            When a user program makes a system call to read or write a disk file, it provides an
+            indication of which file it wants, a pointer to the data buffer, and the count. Control is
+            then transferred to the OS, which calls the appropriate driver. Suppose the driver
+            starts the disk and terminates until an interrupt occurs. In the case of reading, the
+            caller blocks. What about writing to the disk? Must the caller be blocked?
+        </p>
+        <h3>Answer Problem 16</h3>
+        <p>
+            No, writing can often be performed asynchronously. The OS may buffer the write and return
+            control to the caller before the physical write completes. The caller can later sync the
+            file system if needed.
+        </p>
+
+        <h3>Problem 17</h3>
+        <p>
+            What is a trap instruction? Explain its use in operating systems.
+        </p>
+        <h3>Answer Problem 17</h3>
+        <p>
+            A trap instruction switches execution from user mode to kernel mode. It is the mechanism 
+            by which system calls are implemented, allowing user programs to request services from 
+            the operating system securely.
+        </p>
+
+        <h3>Problem 18</h3>
+        <p>
+            Why is the process table needed in a timesharing system? Is it also needed in personal
+            computer systems running UNIX or Windows with a single user?
+        </p>
+        <h3>Answer Problem 18</h3>
+        <p>
+            The process table tracks active processes and their states. Even in a single-user system, 
+            multiple processes (apps, services) run concurrently, so the OS needs the process table 
+            to manage them.
+        </p>
+
+        <h3>Problem 19</h3>
+        <p>
+            Is there any reason why you might want to mount a file system on a nonempty directory?
+            If so, what is it?
+        </p>
+        <h3>Answer Problem 19</h3>
+        <p>
+            Yes, mounting over a nonempty directory can be used to temporarily hide its contents.
+            This can be useful to mask sensitive or irrelevant files, or to override parts of the directory tree.
+        </p>
+
+        <h3>Problem 20</h3>
+        <p>
+            For each of the following system calls, give a condition that causes it to fail: 
+            fork, exec, and unlink.
+        </p>
+        <h3>Answer Problem 20</h3>
+        <p>
+            <strong>fork</strong>: Not enough system resources (e.g., memory or process table full).<br>
+            <strong>exec</strong>: Executable file is missing, not permitted, or of an unsupported format.<br>
+            <strong>unlink</strong>: File does not exist or permission denied.
+        </p>
+
+        <h3>Problem 21</h3>
+        <p>
+            What type of multiplexing (time, space, or both) can be used for sharing the following
+            resources: CPU, memory, disk, network card, printer, keyboard, and display?
+        </p>
+        <h3>Answer Problem 21</h3>
+        <p>
+            CPU – Time<br>
+            Memory – Space<br>
+            Disk – Space<br>
+            Network Card – Time<br>
+            Printer – Both<br>
+            Keyboard – Time<br>
+            Display – Time
+        </p>
+
+        <h3>Problem 22</h3>
+        <p>
+            Can the <code>count = write(fd, buffer, nbytes);</code> call return any value in <code>count</code> other than <code>nbytes</code>? If so, why?
+        </p>
+        <h3>Answer Problem 22</h3>
+        <p>
+            Yes. If there is insufficient space or an error occurs partway through, <code>write</code> may write only some of the bytes 
+            and return the actual number written. The caller must check the return value.
+        </p>
+
+        <h3>Problem 23</h3>
+        <p>
+            A file whose file descriptor is <code>fd</code> contains the following bytes: 3, 1, 4, 1, 5,
+            9, 2, 6, 5, 3, 5. The following system calls are made:
+            <code>lseek(fd, 3, SEEK_SET);</code>
+            <code>read(fd, &buffer, 4);</code>
+            What does buffer contain after the read has completed?
+        </p>
+        <h3>Answer Problem 23</h3>
+        <p>
+            The seek moves the file pointer to byte 3 (zero-indexed), which contains the value 1.<br>
+            Reading 4 bytes gives: 1, 5, 9, 2<br>
+            So <code>buffer</code> contains: 1, 5, 9, 2
+        </p>
     </body>
 </html>
