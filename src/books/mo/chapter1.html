@@ -19,7 +19,6 @@
             <li>Provide users with good abstractions</li>
             <li>Managing devices and resources</li>
         </ol>
-
         <h3>Problem 2</h3>
         <p>
             In Section 1.4, nine different types of operating systems are described. 
@@ -37,7 +36,6 @@
         <li><b>Real-time operating systems</b>: Manufacturing assembly line</li>
         <li><b>Smart card operating systems</b>: Electronic payments</li>
         </ol>
-
         <h3>Problem 3</h3>
         <p>What is the difference between timesharing and multiprogramming systems?</p>
         <h3>Answer Problem 3</h3>
@@ -46,7 +44,6 @@
             can perform multiprogramming. Multiprogramming simply means multiple 
             processes can run concurrently.
         </p>
-
         <h3>Problem 4</h3>
         <p>
             To use cache memory, main memory is divided into cache lines, typically 32 
@@ -60,7 +57,6 @@
             the cache lines are 64 bytes then there will be a single cache miss for 
             the first byte at which point the following 63 bytes are cached.
         </p>
-
         <h3>Problem 5</h3>
         <p>
             On early computers, every byte of data read or written was handled by the 
@@ -73,7 +69,6 @@
             receive/send the data requested. This would increase CPU contention 
             tremendously decreasing performance.
         </p>
-
         <h3>Problem 6</h3>
         <p>
             Instructions related to accessing I/O devices are typically privileged 
@@ -85,7 +80,6 @@
             If I/O instructions are available in userspace there is nothing preventing 
             bad (malicious or buggy) processes from incorrectly interacting with devices.
         </p>
-
         <h3>Problem 7</h3>
         <p>
             The family-of-computers idea was introduced in the 1960s with 
@@ -94,7 +88,6 @@
         </p>
         <h3>Answer Problem 7</h3>
         <p>This is still alive and well. An example includes the x86 CPU family.</p>
-
         <h3>Problem 8</h3>
         <p>
             One reason GUIs were initially slow to be adopted was the cost of the hardware 
@@ -119,7 +112,6 @@
         </p>
         <h3>Answer Problem 9</h3>
         <p>Correctness and speed (especially in the context of multiprocessor programming).</p>
-
         <h3>Problem 10</h3>
         <p>
             What is the difference between kernel and user mode? Explain how having two 
@@ -166,7 +158,6 @@
             (c) YES<br>
             (d) YES
         </p>
-
         <h3>Problem 13</h3>
         <p>
             Consider a system that has two CPUs, each CPU having two threads (hyperthreading).
@@ -185,7 +176,6 @@
             P2:        --------------------<br>
             Total time: 25 msec
         </p>
-
         <h3>Problem 14</h3>
         <p>
             A computer has a pipeline with four stages. Each stage takes the same time to do its
@@ -197,7 +187,6 @@
             So the system can execute 1 billion (10<sup>9</sup>) instructions/sec.<br>
             Note: the first instruction takes 4 nsec, but this is amortized over many instructions.
         </p>
-
         <h3>Problem 15</h3>
         <p>
             Consider a computer system that has cache memory, main memory (RAM), and disk,
@@ -237,7 +226,6 @@
             by which system calls are implemented, allowing user programs to request services from 
             the operating system securely.
         </p>
-
         <h3>Problem 18</h3>
         <p>
             Why is the process table needed in a timesharing system? Is it also needed in personal
@@ -249,7 +237,6 @@
             multiple processes (apps, services) run concurrently, so the OS needs the process table 
             to manage them.
         </p>
-
         <h3>Problem 19</h3>
         <p>
             Is there any reason why you might want to mount a file system on a nonempty directory?
@@ -260,7 +247,6 @@
             Yes, mounting over a nonempty directory can be used to temporarily hide its contents.
             This can be useful to mask sensitive or irrelevant files, or to override parts of the directory tree.
         </p>
-
         <h3>Problem 20</h3>
         <p>
             For each of the following system calls, give a condition that causes it to fail: 
@@ -272,7 +258,6 @@
             <strong>exec</strong>: Executable file is missing, not permitted, or of an unsupported format.<br>
             <strong>unlink</strong>: File does not exist or permission denied.
         </p>
-
         <h3>Problem 21</h3>
         <p>
             What type of multiplexing (time, space, or both) can be used for sharing the following
@@ -280,25 +265,27 @@
         </p>
         <h3>Answer Problem 21</h3>
         <p>
-            CPU – Time<br>
-            Memory – Space<br>
-            Disk – Space<br>
-            Network Card – Time<br>
-            Printer – Both<br>
-            Keyboard – Time<br>
-            Display – Time
+            CPU - Time<br>
+            Memory - Space<br>
+            Disk - Space<br>
+            Network Card - Time<br>
+            Printer - Both<br>
+            Keyboard - Time<br>
+            Display - Time
         </p>
-
         <h3>Problem 22</h3>
         <p>
-            Can the <code>count = write(fd, buffer, nbytes);</code> call return any value in <code>count</code> other than <code>nbytes</code>? If so, why?
+            Can the <code>count = write(fd, buffer, nbytes);</code> call 
+            return any value in <code>count</code> other than 
+            <code>nbytes</code>? If so, why?
         </p>
         <h3>Answer Problem 22</h3>
         <p>
-            Yes. If there is insufficient space or an error occurs partway through, <code>write</code> may write only some of the bytes 
-            and return the actual number written. The caller must check the return value.
+            Yes. If there is insufficient space or an error occurs partway 
+            through, <code>write</code> may write only some of the bytes 
+            and return the actual number written. The caller must check 
+            the return value.
         </p>
-
         <h3>Problem 23</h3>
         <p>
             A file whose file descriptor is <code>fd</code> contains the following bytes: 3, 1, 4, 1, 5,
@@ -313,5 +300,91 @@
             Reading 4 bytes gives: 1, 5, 9, 2<br>
             So <code>buffer</code> contains: 1, 5, 9, 2
         </p>
+        <h3>Answer Problem 24</h3>
+        <p>
+            move_to_cylinder + move_to_track + read_bytes<br>
+            (50 x 1 ms) + 5 ms + (10 MB / 200 MB/s)<br>
+            = 0.05 s + 0.005 s + 0.05 s = 0.105 seconds
+        </p>
+        <h3>Answer Problem 25</h3>
+        <p>
+            Block special files work on blocks of data at a time, while character 
+            special files work on characters of data at a time.
+        </p>
+        <h3>Answer Problem 26</h3>
+        <p>
+            No, the library procedure name is more important for the users of the system.
+        </p>
+        <h3>Answer Problem 27</h3>
+        <p>
+            Each process thinks it has access to the full memory space. Pages can 
+            be loaded and unloaded to and from disk while a process is running. 
+            This allows many large processes to run simultaneously, since only a 
+            subset of their data is actually in memory at any one time.
+        </p>
+        <h3>Answer Problem 28</h3>
+        <p>
+            Yes, syscalls have performance implications. It is useful to 
+            know which functions invoke syscalls when optimizing for performance or debugging.
+        </p>
+        <h3>Answer Problem 29</h3>
+        <p>
+            <b>link:</b> May have to copy data and ensure consistency.<br>
+            <b>mount:</b> Cannot have a single filesystem tree.<br>
+            <b>umount:</b> Same limitation as mount.<br>
+            <b>chmod:</b> Use `icacls` instead.<br>
+            <b>kill:</b> Use `taskkill`.<br>
+            <b>execve:</b> Fork and exec is a single call in Windows now.
+        </p>
+        <h3>Answer Problem 30</h3>
+        <p>
+            New CPU architectures are introduced frequently.<br>
+            <b>Syscall API:</b> Not always trapping to the kernel.<br>
+            <b>Device drivers:</b> These interact with hardware 
+            controllers and are often architecture-specific.
+        </p>
+        <h3>Answer Problem 31</h3>
+        <p>
+            Microservices declare the policy they want. Services responsible for handling it then determine how to implement it (the mechanism). Separating policy and mechanism allows mechanism implementations to reside in the kernel, increasing stability and flexibility.
+        </p>
+        <h3>Answer Problem 32</h3>
+        <p>
+            They take a long time to boot (hence the popularity of containers) 
+            and also suffer from a runtime performance hit.
+        </p>
+        <h3>Answer Problem 33</h3>
+        <p>
+            (a) Nanoyear = 0.0315576 seconds<br>
+            (b) Megamicron = 1 meter<br>
+            (c) 1 PB = 1,000,000,000,000,000 bytes<br>
+            (d) 6000 yottagrams = 6 x 10<sup>24</sup> kilograms
+        </p>
+        <h3>Answer Problem 34</h3>
+        <p>Still in progress...</p>
+        <a href="https://github.com/TheAssembler1/c_term">Github Link</a>
+        <h3>Answer Problem 35</h3>
+        <p>
+        <pre class="code-block">
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/wait.h&gt;
+
+static void recurse_fork() {
+    pid_t pid = fork();
+    int wait_stat;
+    if(pid == 0)
+        recurse_fork();
+    else
+        wait(&wait_stat);
+}
+
+int main() {
+    recurse_fork();
+    return 0;
+}
+        </pre>
+        </p>
+        <h3>Answer Problem 36</h3>
+        <p>Viewed... Moving on.</p>
     </body>
 </html>
