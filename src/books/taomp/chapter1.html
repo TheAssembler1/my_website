@@ -17,11 +17,11 @@
             The dining philosophers problem was invented by E. W. Dijkstra, a
             concurrency pioneer, to clarify the notions of deadlock and starvation freedom.
             Imagine ﬁve philosophers who spend their lives just thinking and feasting. They
-            sit around a circular table with ﬁve chairs. The table has a big plate of rice. How-
-            ever, there are only ﬁve chopsticks (in the original formulation forks) available,
+            sit around a circular table with five chairs. The table has a big plate of rice. However, 
+            there are only five chopsticks (in the original formulation forks) available,
             as shown in Fig. 1.5. Each philosopher thinks. When he gets hungry, he sits down
             and picks up the two chopsticks that are closest to him. If a philosopher can pick
-            up both chopsticks, he can eat for a while. After a philosopher ﬁnishes eating, he
+            up both chopsticks, he can eat for a while. After a philosopher finishes eating, he
             puts down the chopsticks and again starts to think.
         </p>
         <p>
@@ -32,8 +32,8 @@
         </p>
         <p>
             2. Amend your program so that it never reaches a state where philosophers are
-            deadlocked, that is, it is never the case that each philosopher holds one chop-
-            stick and is stuck waiting for another to get the second chopstick.
+            deadlocked, that is, it is never the case that each philosopher holds one 
+            chopstick and is stuck waiting for another to get the second chopstick.
         </p>
         <p>
             3. Amend your program so that no philosopher ever starves.
@@ -51,7 +51,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 class Main extends Thread {
     static int num_philosophers = 5;
-    static List<Lock> chopsticks = new ArrayList<>();
+    static List<Lock> chopsticks = new ArrayList&lt;&gt;();
     static int eat_time_millis = 500;
     
     int philosopher_id;
@@ -61,16 +61,16 @@ class Main extends Thread {
     }
     
     public static void main(String[] args) {
-        if(num_philosophers < 5) {
+        if(num_philosophers &lt; 5) {
             System.out.println("num_philosophers must be at least 5!");
             return;
         }
         
-        List<Thread> philosophers = new ArrayList<>();
+        List<Thread> philosophers = new ArrayList&lt;&gt;();
         
-        for(int i = 0; i < num_philosophers; i++)
+        for(int i = 0; i &lt; num_philosophers; i++)
             philosophers.add(new Main(i));
-        for(int i = 0; i < num_philosophers; i++)
+        for(int i = 0; i &lt; num_philosophers; i++)
             chopsticks.add(new ReentrantLock(false));
         for(Thread philosopher: philosophers)
             philosopher.start();
@@ -121,7 +121,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 class Main extends Thread {
     static int num_philosophers = 5;
-    static List<Lock> chopsticks = new ArrayList<>();
+    static List<Lock> chopsticks = new ArrayList&lt;&gt;();
     static int eat_time_millis = 500;
     
     int philosopher_id;
@@ -131,16 +131,16 @@ class Main extends Thread {
     }
     
     public static void main(String[] args) {
-        if(num_philosophers < 5) {
+        if(num_philosophers &lt; 5) {
             System.out.println("num_philosophers must be at least 5!");
             return;
         }
         
-        List<Thread> philosophers = new ArrayList<>();
+        List<Thread> philosophers = new ArrayList&lt;&gt;();
         
-        for(int i = 0; i < num_philosophers; i++)
+        for(int i = 0; i &lt; num_philosophers; i++)
             philosophers.add(new Main(i));
-        for(int i = 0; i < num_philosophers; i++)
+        for(int i = 0; i &lt; num_philosophers; i++)
             chopsticks.add(new ReentrantLock(false));
         for(Thread philosopher: philosophers)
             philosopher.start();
@@ -195,7 +195,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 class Main extends Thread {
     static int num_philosophers = 5;
-    static List<Lock> chopsticks = new ArrayList<>();
+    static List<Lock> chopsticks = new ArrayList&lt;&gt;();
     static int eat_time_millis = 500;
     
     int philosopher_id;
@@ -205,16 +205,16 @@ class Main extends Thread {
     }
     
     public static void main(String[] args) {
-        if(num_philosophers < 5) {
+        if(num_philosophers &lt; 5) {
             System.out.println("num_philosophers must be at least 5!");
             return;
         }
         
-        List<Thread> philosophers = new ArrayList<>();
+        List<Thread> philosophers = new ArrayList&lt;&gt;();
         
-        for(int i = 0; i < num_philosophers; i++)
+        for(int i = 0; i &lt; num_philosophers; i++)
             philosophers.add(new Main(i));
-        for(int i = 0; i < num_philosophers; i++)
+        for(int i = 0; i &lt; num_philosophers; i++)
             chopsticks.add(new ReentrantLock(false));
         for(Thread philosopher: philosophers)
             philosopher.start();
@@ -278,16 +278,16 @@ class Main extends Thread {
             8. You can always tell a Harvard man.
         </p>
         <h3>Answer Problem 2</h3>
-        <p>
-            1. Safety | Later patron is served before earlier.<br>
-            2. Liveness | All things that go up eventually come down.<br>
-            3. Liveness | One process eventually enters the critical section.<br>
-            4. Liveness | Message is printed within one second after interrupt.<br>
-            5. Liveness | Message is eventually printed after interrupt.<br>
-            6. Safety | The cost of living increases.<br>
-            7. Liveness | Eventually you die and pay taxes.<br>
-            8. Safety | You can't tell the Harvard man.
-        </p>
+        <ol>
+            <li>Safety | Later patron is served before earlier.</li>
+            <li>Liveness | All things that go up eventually come down.</li>
+            <li>Liveness | One process eventually enters the critical section.</li>
+            <li>Liveness | Message is printed within one second after interrupt.</li>
+            <li>Liveness | Message is eventually printed after interrupt.</li>
+            <li>Safety | The cost of living increases.</li>
+            <li>Liveness | Eventually you die and pay taxes.</li>
+            <li>Safety | You can't tell the Harvard man.</li>
+        </ol>
 
         <h3>Problem 3</h3>
         <p>
